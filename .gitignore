@@ -1,0 +1,5 @@
+build/
+install/
+log/
+vosk-model-small-en-us-0.15.zip
+vosk-model-small-en-us-0.15/
