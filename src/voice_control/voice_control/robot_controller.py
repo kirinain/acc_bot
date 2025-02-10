@@ -7,29 +7,29 @@ class RobotController(Node):
     def __init__(self):
         super().__init__('robot_controller')
 
-        # Subscribe to voice commands
+        
         self.subscription = self.create_subscription(
             String, 'voice_commands', self.command_callback, 10)
 
-        # Publisher for velocity commands
+       
         self.publisher_ = self.create_publisher(Twist, 'cmd_vel', 10)
 
         self.get_logger().info("Robot Controller Node Started")
 
     def command_callback(self, msg):
         """Processes voice commands and sends movement commands"""
-        command = msg.data.lower()  # Convert to lowercase for consistency
+        command = msg.data.lower()  
         twist = Twist()
 
         if "move" in command in command:
-            twist.linear.x = 0.5 # Move forward
+            twist.linear.x = 0.5 
         elif "left" in command:
-            twist.angular.z = 0.5  # Rotate left
+            twist.angular.z = 0.5  
         elif "right" in command:
-            twist.angular.z = -0.5  # Rotate right
+            twist.angular.z = -0.5  
         elif "straight" in command:
             twist.linear.x = 0.5
-            twist.angular.z = 0.0  # Stop
+            twist.angular.z = 0.0  
 
         self.publisher_.publish(twist)
         self.get_logger().info(f"Executed Command: {command}")
